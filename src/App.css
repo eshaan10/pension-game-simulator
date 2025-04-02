@@ -1,38 +1,285 @@
-.App {
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: #0f172a;
+  color: #f8fafc;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.game-container {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  border-radius: 1rem;
+  backdrop-filter: blur(10px);
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.85);
+  z-index: 1;
+}
+
+.step-card {
+  background: #1e293b;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+  margin-top: 2rem;
+  z-index: 3;
+}
+
+h1 {
+  font-size: 2rem;
+  color: #fbbf24;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h2 {
+  font-size: 1.4rem;
+  color: #38bdf8;
+  margin-bottom: 1rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+button {
+  background: #3b82f6;
+  border: none;
+  padding: 12px 16px;
+  color: white;
+  font-weight: bold;
+  border-radius: 8px;
+  width: 100%;
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: 0.2s ease;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+button:hover {
+  background: #2563eb;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.advisor-grid {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.advisor-card {
+  flex: 1 1 200px;
+  background: #334155;
+  padding: 1.5rem;
+  border-radius: 10px;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.advisor-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 16px rgba(100, 116, 139, 0.4);
+  border-color: #7dd3fc;
+}
+
+.text-sm {
+  color: #94a3b8;
+  text-align: right;
+  margin-top: -0.5rem;
+}
+
+.tooltip-container {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  margin-left: 0.3rem;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  background-color: #475569;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px;
+  position: absolute;
+  z-index: 10;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 240px;
+  font-size: 0.75rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.tooltip-container:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* 🎯 ChatBot Styling */
+
+.chat-box.sleek {
+  position: relative;
+  margin: 3rem auto 0 auto;
+  width: 320px;
+  background: linear-gradient(145deg, #1e293b, #0f172a);
+  border-radius: 1rem;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  font-size: 0.9rem;
+  z-index: 5;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  border: 1px solid #334155;
+  transition: all 0.3s ease-in-out;
+}
+
+.chat-header {
+  background-color: #0f172a;
+  color: #fbbf24;
+  padding: 0.75rem 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  border-bottom: 1px solid #334155;
+  text-align: center;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+}
+
+.chat-content {
+  display: flex;
+  flex-direction: column;
+  max-height: 300px;
+  overflow-y: auto;
+  background-color: #1e293b;
+}
+
+.chat-messages {
+  padding: 1rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.chat-message {
+  line-height: 1.4;
+  padding: 0.7rem 1rem;
+  border-radius: 20px;
+  max-width: 80%;
+  word-wrap: break-word;
+  font-size: 0.85rem;
+}
+
+.chat-message.user {
+  background-color: #3b82f6;
   color: white;
+  align-self: flex-end;
+  border-bottom-right-radius: 0;
 }
 
-.App-link {
-  color: #61dafb;
+.chat-message.assistant {
+  background-color: #334155;
+  color: #f8fafc;
+  align-self: flex-start;
+  border-bottom-left-radius: 0;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.chat-input {
+  display: flex;
+  border-top: 1px solid #334155;
+  background-color: #0f172a;
+  padding: 0.5rem;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 0.6rem 0.8rem;
+  border: none;
+  outline: none;
+  background-color: #1e293b;
+  color: white;
+  font-size: 0.85rem;
+  border-radius: 8px;
+  margin-right: 0.5rem;
+}
+
+.chat-input button {
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+}
+
+.chat-input button:hover {
+  background-color: #2563eb;
+}
+
+/* For sticky bottom-right fallback if needed later */
+.chat-box.bottom-right {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 1000;
+}
+
+
+/* Advisor Grid Styling */
+.advisor-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.advisor-card {
+  background-color: #1e293b;
+  border: 2px solid transparent;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+.advisor-card:hover {
+  border-color: #3b82f6;
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(59, 130, 246, 0.3);
+}
+
+.advisor-img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  margin-bottom: 1rem;
+  border-radius: 50%;
+  background-color: #334155;
+  padding: 0.5rem;
+}
+
+.advisor-card h3 {
+  margin: 0.5rem 0 0.25rem;
+  color: #fbbf24;
+  font-size: 1.2rem;
+}
+
+.advisor-card p {
+  font-size: 0.9rem;
+  color: #cbd5e1;
 }
